@@ -1,44 +1,25 @@
 module Graph
-  class Commands::CreateService
-    attr_accessor :result, :error
-
-    def initialize(command)
-      @path = command.split(' ').second
-      @data = command.split(' ').third
-      @result = ''
-      @error = ''
-    end
-
-    def call
-      if data
-        targeted_folder.system_files.create!(name: targeted_name, data: data)
-      else
-        targeted_folder.children.create!(name: targeted_name)
+  module Commands
+    class CreateService < BaseService
+      def initialize(user: , command: , current_folder:)
+        super
       end
-    rescue ActiveRecord::RecordNotFound
-      @error = 'File is not found'
-    rescue ActiveRecord::RecordInvalid
-      @error = 'Path is exist'
-    end
-
-  private
-
-    attr_reader :path, :data, :targeted_name
-
-    def targeted_folder
-      @targeted_folder ||= begin
+      
+      def call
+        path = command.split(' ').first
+        data = command.split(' ').second
         folder_names = path.split('/')
-        @targeted_name = folder_names.pop
+        targeted_name = folder_names.pop 
 
-        current_folder = Folder.root
-        folder_names.each do |folder_name|
-          current_folder = if folder_name.empty?
-                            Folder.root
-                          else
-                            current_folder.children.find_by!(name: folder_name)
-                          end
+        if data
+          targeted_folder(folder_names).system_files.create!(name: targeted_name, data: data)
+        else
+          targeted_folder(folder_names).children.create!(user: user, name: targeted_name)
         end
-        current_folder
+      rescue ActiveRecord::RecordNotFound
+        @error = 'File is not found'
+      rescue ActiveRecord::RecordInvalid
+        @error = 'Path is exist'
       end
     end
   end

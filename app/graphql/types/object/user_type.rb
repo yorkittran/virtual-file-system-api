@@ -3,6 +3,7 @@ module Types
     class UserType < BaseObject
       field :id, ID
       field :email, String, null: false
+      field :root_folder, FolderType
     end
   end
 end

@@ -17,4 +17,10 @@
 #
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :validatable
+
+  has_many :folders, dependent: :destroy
+
+  def root_folder
+    Folder.by_user(self).root
+  end
 end
