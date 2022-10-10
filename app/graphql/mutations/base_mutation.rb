@@ -5,7 +5,7 @@ module Mutations
     end
 
     def authorize_user!
-      raise GraphQL::ExecutionError, I18n.t('errors.graphql.authorize_failed') unless current_user
+      raise GraphQL::ExecutionError, You must login to perform this action! unless current_user
     end
   end
 end
