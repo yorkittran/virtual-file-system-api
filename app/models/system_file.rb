@@ -19,4 +19,10 @@
 #
 class SystemFile < ApplicationRecord
   belongs_to :folder
+
+  validates :name, presence: true, uniqueness: { scope: :folder_id }
+
+  def size
+    data.length
+  end
 end
