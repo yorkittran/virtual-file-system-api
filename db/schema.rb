@@ -11,15 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_10_08_091542) do
-  create_table "files", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "folder_id", null: false
-    t.string "name", null: false
-    t.string "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["folder_id"], name: "index_files_on_folder_id"
-  end
-
   create_table "folders", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "ancestry"
@@ -28,5 +19,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_08_091542) do
     t.index ["ancestry"], name: "index_folders_on_ancestry"
   end
 
-  add_foreign_key "files", "folders"
+  create_table "system_files", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "folder_id", null: false
+    t.string "name", null: false
+    t.string "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["folder_id"], name: "index_system_files_on_folder_id"
+  end
+
+  add_foreign_key "system_files", "folders"
 end
