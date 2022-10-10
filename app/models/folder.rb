@@ -15,7 +15,7 @@
 class Folder < ApplicationRecord
   has_ancestry
 
-  has_many :files, dependent: :destroy
+  has_many :system_files, dependent: :destroy
 
   validates :name, presence: true, format: { with: /\A[a-zA-Z0-9 _-]+\z/ }
 
