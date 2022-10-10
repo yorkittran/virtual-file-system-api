@@ -6,8 +6,8 @@ module Graph
       end
       
       def call
-        path = command.split(' ').first
-        data = command.split(' ').second
+        path = command.split(' ', 2).first
+        data = command.split(' ', 2).second
         folder_names = path.split('/')
         targeted_name = folder_names.pop 
 
@@ -18,8 +18,8 @@ module Graph
         end
       rescue ActiveRecord::RecordNotFound
         @error = 'File is not found'
-      rescue ActiveRecord::RecordInvalid
-        @error = 'Path is exist'
+      rescue ActiveRecord::RecordInvalid => e
+        @error = e.message
       end
     end
   end
