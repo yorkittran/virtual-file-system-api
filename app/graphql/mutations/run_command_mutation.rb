@@ -8,6 +8,8 @@ module Mutations
     field :error, String
 
     def resolve(args)
+      authorize_user!
+
       command_head = args[:command].split(' ').first
       service = case command_head
                 when 'cr'

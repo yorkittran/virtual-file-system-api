@@ -13,8 +13,7 @@ module Mutations
 
       def resolve(args)
         user = User.find_by(email: args[:email])
-        raise GraphQL::ExecutionError, I18n.t('errors.graphql.sign_in_failed') unless user.present? && user.valid_password?(args[:password])
-        raise GraphQL::ExecutionError, I18n.t('errors.graphql.not_verified') unless user.confirmed?
+        raise GraphQL::ExecutionError, 'Incorrect Email or Password!' unless user.present? && user.valid_password?(args[:password])
 
         user.update!(authentication_token: SecureRandom.hex)
         access_token = JsonWebToken.encode(id: user.id, authentication_token: user.authentication_token)
