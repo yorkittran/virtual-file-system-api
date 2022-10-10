@@ -13,13 +13,15 @@
 ActiveRecord::Schema[7.0].define(version: 2022_10_08_091542) do
   create_table "files", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "folder_id", null: false
+    t.string "name", null: false
+    t.string "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["folder_id"], name: "index_files_on_folder_id"
   end
 
   create_table "folders", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "ancestry"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
