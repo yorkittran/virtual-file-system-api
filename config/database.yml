@@ -48,8 +48,11 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+
 production:
   <<: *default
-  database: virtual_file_system_api_production
-  username: virtual_file_system_api
-  password: <%= ENV["VIRTUAL_FILE_SYSTEM_API_DATABASE_PASSWORD"] %>
+  database: <%= Settings.database.database %>
+  username: <%= Settings.database.username %>
+  password: <%= Settings.database.password %>
+  host: <%= Settings.database.host %>
+  port: <%= Settings.database.port %>
