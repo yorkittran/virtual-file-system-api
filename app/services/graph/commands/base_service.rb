@@ -1,7 +1,7 @@
 module Graph
   module Commands
     class BaseService
-      attr_accessor :result, :error
+      attr_accessor :result, :error, :current_folder
   
       def initialize(user: , command: , current_folder:)
         @user = user
@@ -13,7 +13,7 @@ module Graph
   
     private
   
-      attr_reader :user, :command, :current_folder
+      attr_reader :user, :command
   
       def targeted_folder(folder_names)
         folder = current_folder

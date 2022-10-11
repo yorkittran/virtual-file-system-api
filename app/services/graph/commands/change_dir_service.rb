@@ -7,8 +7,14 @@ module Graph
   
       def call
         folder_names = command&.split('/')
-  
-        @result = targeted_folder(folder_names).id
+
+        if folder_names.present?
+          @current_folder = targeted_folder(folder_names)
+        else
+          @current_folder = user.root_folder
+        end
+
+        @result = current_folder.path
       rescue ActiveRecord::RecordNotFound
         @error = 'Path is not found'
       end

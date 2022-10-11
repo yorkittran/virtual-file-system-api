@@ -37,4 +37,16 @@ class Folder < ApplicationRecord
   def size
     system_files.sum(&:size)
   end
+
+  def path
+    return '' if name == ROOT_NAME
+
+    path = name
+    parent = self.parent
+    while parent.name != ROOT_NAME
+      path = "#{parent.name}/#{path}"
+      parent = parent.parent
+    end
+    "/#{path}"
+  end
 end
