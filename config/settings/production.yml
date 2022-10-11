@@ -1,0 +1,5 @@
+routes:
+  web:
+    url_options:
+      protocol: https
+      host: virtual-file-system.tthtsvyd.com
