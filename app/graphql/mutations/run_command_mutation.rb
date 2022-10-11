@@ -14,7 +14,7 @@ module Mutations
 
       command_head = args[:command].split(' ', 2).first
       command = args[:command].split(' ', 2).second
-      current_folder = Folder.by_user(current_user).find(args[:folder_id])
+      current_folder = current_user.folders.find(args[:folder_id])
       params = { user: current_user, command: command, current_folder: current_folder }
       @error = ''
 

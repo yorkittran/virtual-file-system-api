@@ -21,6 +21,6 @@ class User < ApplicationRecord
   has_many :folders, dependent: :destroy
 
   def root_folder
-    Folder.by_user(self).root
+    folders.root
   end
 end

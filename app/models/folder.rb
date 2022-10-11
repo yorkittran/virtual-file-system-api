@@ -26,13 +26,9 @@ class Folder < ApplicationRecord
   belongs_to :user
   has_many :system_files, dependent: :destroy
 
-  validates :name, presence: true, format: { with: /\A[a-zA-Z0-9 _-]+\z/ }, uniqueness: { scope: :ancestry }
+  validates :name, presence: true, format: { with: /\A[a-zA-Z0-9 _-]+\z/ }, uniqueness: { scope: %i[user_id ancestry] }
 
-  scope :by_user, -> (user) { where(user: user) }
-
-  def self.root
-    self.find_or_create_by!(name: ROOT_NAME)
-  end
+  scope :root, -> { find_by(name: ROOT_NAME) }
 
   def size
     system_files.sum(&:size)
