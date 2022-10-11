@@ -20,11 +20,6 @@ gem 'puma', '~> 5.6', '>= 5.6.4'
 gem 'redis', '~> 4.0'
 
 #
-# Views
-#
-gem 'bootstrap', '~> 5.1', '>= 5.1.3'
-
-#
 # Rack Middlewares
 #
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
